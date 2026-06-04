@@ -15,18 +15,15 @@ def predict_probability(X, weights, bias):
 def cost_function(X, y, weights, bias) :
     # binary cross entropy function
 
-     m = len(y)
+    m = len(y)
+    predictions = predict_probability(X, weights, bias)
+    predictions = np.clip(predictions, 1e-15, 1 - 1e-15)
+    cost = (-1/m) * np.sum(
+        y * np.log(predictions) +
+        (1-y) * np.log(1-predictions)
+    )
 
-     predictions = predict_probability(X, weights, bias)
-
-     predictions = np.clip(predictions, 1e-15, 1 - 1e-15)
-
-     cost = (-1/m) * np.sum(
-         y * np.log(predictions) +
-         (1-y) * np.log(1-predictions)
-     )
- 
-     return cost
+    return cost
  
 # gradient descent for update rule
 
@@ -88,16 +85,27 @@ plt.ylabel("Cost")
 plt.title("Training Loss")
 plt.show()
 
-x = np.linspace(-10, 10, 100)
+# plot data points
 
-y = sigmoid(x)
+plt.figure(figsize=(8,6))
 
-plt.plot(x, y)
+for i in range(len(y)):
+    
+    if y[i] == 0:
+        plt.scatter(X[i,0], X[i,1], marker='o')
+    else:
+        plt.scatter(X[i,0], X[i,1], marker='x')
 
-plt.xlabel("x")
-plt.ylabel("sigmoid(x)")
-plt.title("Sigmoid Function")
+# decision boundary
 
-plt.grid(True)
+x_values = np.array([X[:,0].min(), X[:,0].max()])
+
+y_values = -(weights[0] * x_values + bias) / weights[1]
+
+plt.plot(x_values, y_values)
+
+plt.xlabel("Hours Studied (scaled)")
+plt.ylabel("Attendance (scaled)")
+plt.title("Decision Boundary")
 
 plt.show()
