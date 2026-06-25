@@ -1,15 +1,18 @@
-from sklearn.datasets import make_circles
-from sklearn.datasets import make_moons
-from sklearn.datasets import make_blobs
-from sklearn.svm import SVC
+from dataset_generator import generate_dataset
+from svm_utils import train_svm
+from visualizations import plot_decision_boundary
 
-def train_svm(X, y, kernel, C, gamma):
-    model = SVC(
-        kernel=kernel,
-        C=C,
-        gamma=gamma
-    )
 
-    model.fit(X, y)
+X, y = generate_dataset("circles")
 
-    return model
+model = train_svm(
+    X,
+    y,
+    kernel="linear"
+)
+
+plot_decision_boundary(
+    model,
+    X,
+    y
+)
