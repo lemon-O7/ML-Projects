@@ -3,12 +3,12 @@ from svm_utils import train_svm
 from visualizations import plot_decision_boundary
 
 
-X, y = generate_dataset("circles")
+X, y = generate_dataset("moons")
 
 model = train_svm(
     X,
     y,
-    kernel="linear"
+    kernel="rbf"
 )
 
 plot_decision_boundary(

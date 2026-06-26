@@ -17,19 +17,18 @@ def plot_decision_boundary(model, X, y):
 
     grid_points = np.c_[xx.ravel(), yy.ravel()]
 
-    Z = model.predict(grid_points)
-
+    Z = model.decision_function(grid_points)
     Z = Z.reshape(xx.shape)
 
-    plt.figure(figsize=(8, 6))
-
-    plt.contourf(
+    plt.contour(
         xx,
         yy,
         Z,
-        alpha=0.3
+        levels=[-1, 0, 1],
+        colors=["blue", "black", "red"],
+        linestyles=["--", "-", "--"]
     )
-
+    
     plt.scatter(
         X[:, 0],
         X[:, 1],
