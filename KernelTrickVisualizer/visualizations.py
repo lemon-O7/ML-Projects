@@ -50,4 +50,16 @@ def plot_decision_boundary(model, X, y):
 
     plt.title(f"SVM Kernel = {model.kernel}")
 
+
+    num_sv = len(model.support_vectors_)
+
+    plt.text(
+        0.02,
+        0.98,
+        f"Support Vectors: {num_sv}",
+        transform=plt.gca().transAxes,
+        verticalalignment="top",
+        bbox=dict(facecolor="white", alpha=0.8)
+    )
+
     plt.show()
