@@ -2,6 +2,11 @@ from sklearn.datasets import make_circles
 from sklearn.datasets import make_moons
 from sklearn.datasets import make_blobs
 
+def add_outlier(X, point=(1.5, 1.5)):
+    X = X.copy()
+    X[0] = point
+    return X
+
 
 def generate_dataset(dataset_type):
 

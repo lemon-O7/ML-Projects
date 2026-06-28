@@ -19,7 +19,7 @@ def plot_decision_boundary(model, X, y):
 
     Z = model.decision_function(grid_points)
     Z = Z.reshape(xx.shape)
-
+    print(Z.min(), Z.max())
     plt.contour(
         xx,
         yy,
