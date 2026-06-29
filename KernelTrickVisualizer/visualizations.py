@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_decision_boundary(model, X, y):
+def plot_decision_boundary(model, X, y, ax):
 
     x_min = X[:, 0].min() - 1
     x_max = X[:, 0].max() + 1
@@ -20,7 +20,7 @@ def plot_decision_boundary(model, X, y):
     Z = model.decision_function(grid_points)
     Z = Z.reshape(xx.shape)
     print(Z.min(), Z.max())
-    plt.contour(
+    ax.contour(
         xx,
         yy,
         Z,
@@ -29,14 +29,14 @@ def plot_decision_boundary(model, X, y):
         linestyles=["--", "-", "--"]
     )
     
-    plt.scatter(
+    ax.scatter(
         X[:, 0],
         X[:, 1],
         c=y,
         edgecolors="k"
     )
 
-    plt.scatter(
+    ax.scatter(
         model.support_vectors_[:, 0],
         model.support_vectors_[:, 1],
         s=120,
@@ -46,20 +46,20 @@ def plot_decision_boundary(model, X, y):
         label="Support Vectors"
     )
 
-    plt.legend()
+    ax.legend()
 
-    plt.title(f"SVM Kernel = {model.kernel}")
+    ax.set_title(f"SVM Kernel = {model.kernel}")
 
 
     num_sv = len(model.support_vectors_)
 
-    plt.text(
+    ax.text(
         0.02,
         0.98,
         f"Support Vectors: {num_sv}",
-        transform=plt.gca().transAxes,
+        transform=ax.transAxes,
         verticalalignment="top",
         bbox=dict(facecolor="white", alpha=0.8)
     )
 
-    plt.show()
+    
