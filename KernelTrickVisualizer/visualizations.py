@@ -48,7 +48,11 @@ def plot_decision_boundary(model, X, y, ax):
 
     ax.legend()
 
-    ax.set_title(f"SVM Kernel = {model.kernel}")
+    ax.set_title(
+    f"Kernel: {model.kernel}\n"
+    f"C = {model.C}\n"
+    f"Support Vectors = {len(model.support_vectors_)}"
+)
 
 
     num_sv = len(model.support_vectors_)
