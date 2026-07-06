@@ -19,7 +19,7 @@ def plot_decision_boundary(model, X, y, ax):
 
     Z = model.decision_function(grid_points)
     Z = Z.reshape(xx.shape)
-    print(Z.min(), Z.max())
+    
     ax.contour(
         xx,
         yy,
@@ -65,6 +65,5 @@ def plot_decision_boundary(model, X, y, ax):
         verticalalignment="top",
         bbox=dict(facecolor="white", alpha=0.8)
     )
-    print(model.dual_coef_.shape)
-    print(model.support_vectors_.shape)
+    
     
