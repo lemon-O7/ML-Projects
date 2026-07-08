@@ -47,12 +47,13 @@ def plot_decision_boundary(model, X, y, ax):
     )
 
     ax.legend()
-
+    accuracy = model.score(X,y)
     ax.set_title(
     f"Kernel: {model.kernel}\n"
     f"C = {model.C}\n"
-    f"Support Vectors = {len(model.support_vectors_)}"
-)
+    f"Support Vectors = {len(model.support_vectors_)}\n"
+    f"Accuracy = {100*accuracy}%\n"
+    )
 
 
     num_sv = len(model.support_vectors_)
