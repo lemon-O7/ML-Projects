@@ -20,13 +20,14 @@ def plot_decision_boundary(model, X, y, ax):
     Z = model.decision_function(grid_points)
     Z = Z.reshape(xx.shape)
     
-    ax.contour(
+    ax.contourf(
         xx,
         yy,
         Z,
-        levels=[-1, 0, 1],
+        levels=[Z.min(), 0, Z.max()],
         colors=["blue", "black", "red"],
-        linestyles=["--", "-", "--"]
+        linestyles=["--", "-", "--"],
+        alpha =0.3
     )
     
     ax.scatter(
