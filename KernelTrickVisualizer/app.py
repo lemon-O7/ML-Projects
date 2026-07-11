@@ -4,11 +4,10 @@ from visualizations import plot_decision_boundary
 import matplotlib.pyplot as plt
 
 DATASET = "circles"
-KERNELS = ["linear","rbf","poly"]
+KERNELS_CONFIGS = [{"kernel" : "linear", "C": 100},
+                   {"kernel" : "rbf", "C":100},
+                   {"kernel" : "poly", "C": 100, "degree" : 3}]
 
-C = 100
-GAMMA = "scale"
-DEGREE = 3
 
 
 
@@ -18,12 +17,12 @@ X_modified = add_outlier(X)
 
 models = []
 
-for kernel in KERNELS :
+
+for config in KERNELS_CONFIGS :
     model = train_svm(
         X,
         y,
-        kernel=kernel,
-        C=C
+        **config
     )
     models.append(model)
 

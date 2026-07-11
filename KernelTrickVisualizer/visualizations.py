@@ -51,21 +51,24 @@ def plot_decision_boundary(model, X, y, ax):
     accuracy = model.score(X,y)
     ax.set_title(
     f"Kernel: {model.kernel}\n"
-    f"C = {model.C}\n"
-    f"Support Vectors = {len(model.support_vectors_)}\n"
-    f"Accuracy = {100*accuracy}%\n"
     )
 
 
     num_sv = len(model.support_vectors_)
-
+    info = (
+        f"Kernel: {model.kernel.upper()}\n"
+        f"C: {model.C}\n"
+        f"Support Vectors: {num_sv}\n"
+        f"Accuracy: {accuracy * 100:.1f}%"
+    )
     ax.text(
-        0.02,
-        0.98,
-        f"Support Vectors: {num_sv}",
-        transform=ax.transAxes,
-        verticalalignment="top",
-        bbox=dict(facecolor="white", alpha=0.8)
+    0.02,
+    0.98,
+    info,
+    transform=ax.transAxes,
+    verticalalignment="top",
+    fontsize=9,
+    bbox=dict(facecolor="white", alpha=0.8)
     )
     
     
