@@ -1,13 +1,34 @@
+from dataset_generator import generate_dataset,add_outlier
+from svm_utils import train_svm
+from visualizations import plot_decision_boundary
 import matplotlib.pyplot as plt
 
-fig, axes = plt.subplots(
-    1,
-    3,
-    figsize=(15, 5)
-)
+def compare_kernels(X,y,configs) :
+    
+    fig, axes = plt.subplots(1, len(configs), figsize=(6*len(configs), 6))
+    fig.suptitle(
+        "SVM Playground",
+        fontsize=16
+    )
 
-axes[0].set_title("Linear")
-axes[1].set_title("RBF")
-axes[2].set_title("Polynomial")
+    models = []
 
-plt.show()
+
+    for config in configs :
+        model = train_svm(
+            X,
+            y,
+            **config
+        )
+        models.append(model)
+
+
+    for model, ax in zip(models, axes):
+        plot_decision_boundary (
+            model,
+            X,
+            y,
+            ax
+        )
+    plt.tight_layout()
+    plt.show()
