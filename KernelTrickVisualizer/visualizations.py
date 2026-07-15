@@ -58,6 +58,7 @@ def plot_decision_boundary(model, X, y, ax):
         margin_text = f"{margin:.2f}"
     else:
         margin_text = "N/A"
+    
     num_sv = len(model.support_vectors_)
     info = (
         f"Kernel: {model.kernel.upper()}\n"
@@ -66,6 +67,7 @@ def plot_decision_boundary(model, X, y, ax):
         f"Accuracy: {accuracy * 100:.1f}%\n"
         f"Margin Width: {margin_text}"
     )
+
     ax.text(
     0.02,
     0.98,

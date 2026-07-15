@@ -3,13 +3,8 @@ from svm_utils import train_svm
 from visualizations import plot_decision_boundary
 import matplotlib.pyplot as plt
 
-def compare_kernels(X,y,configs) :
+def compare_kernels(X,y,configs,axes) :
     
-    fig, axes = plt.subplots(1, len(configs), figsize=(6*len(configs), 6))
-    fig.suptitle(
-        "SVM Playground",
-        fontsize=16
-    )
 
     models = []
 
@@ -30,5 +25,4 @@ def compare_kernels(X,y,configs) :
             y,
             ax
         )
-    plt.tight_layout()
-    plt.show()
+   
