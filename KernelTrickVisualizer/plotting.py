@@ -1,5 +1,29 @@
+from svm import train_svm
 import numpy as np
-import matplotlib.pyplot as plt
+
+
+def compare_kernels(X,y,configs,axes) :
+    
+
+    models = []
+
+
+    for config in configs :
+        model = train_svm(
+            X,
+            y,
+            **config
+        )
+        models.append(model)
+
+
+    for model, ax in zip(models, axes):
+        plot_decision_boundary (
+            model,
+            X,
+            y,
+            ax
+        )
 
 
 def plot_decision_boundary(model, X, y, ax):

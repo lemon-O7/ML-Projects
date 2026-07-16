@@ -1,12 +1,16 @@
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
-from comparison import compare_kernels
+from plotting import compare_kernels
+from datasets import generate_dataset
+from config import DATASET, KERNEL_CONFIGS
 
-def launch_explorer(X,y,configs):
+def run_explorer():
     
+    X,y = generate_dataset(DATASET)
+
     def update(val) :
         c_val = c_slider.val
-        for config in configs:
+        for config in KERNEL_CONFIGS:
             config["C"] = c_val
         
         for ax in axes :
@@ -15,12 +19,12 @@ def launch_explorer(X,y,configs):
         compare_kernels(
             X,
             y,
-            configs,
+            KERNEL_CONFIGS,
             axes
         )
         fig.canvas.draw_idle()
 
-    fig, axes = plt.subplots(1, len(configs), figsize=(6*len(configs), 6))
+    fig, axes = plt.subplots(1, len(KERNEL_CONFIGS), figsize=(6*len(KERNEL_CONFIGS), 6))
     fig.subplots_adjust(bottom=0.20)
     fig.suptitle("SVM Explorer")
     slider_ax = plt.axes([0.2, 0.08, 0.6, 0.03])
@@ -37,7 +41,7 @@ def launch_explorer(X,y,configs):
     compare_kernels(
         X,
         y,
-        configs,
+        KERNEL_CONFIGS,
         axes
     )
     fig.tight_layout(rect=[0, 0.12, 1, 0.95])
