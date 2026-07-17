@@ -1,5 +1,12 @@
 
-DATASET = "moons"
+DATASETS = [
+    "linear",
+    "blobs",
+    "moons",
+    "circles"
+]
+
+DEFAULT_DATASET = "circles"
 
 KERNEL_CONFIGS = [{"kernel" : "linear", "C": 100},
                    {"kernel" : "rbf", "C":100},
