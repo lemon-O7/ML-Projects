@@ -36,7 +36,7 @@ def generate_dataset(dataset_type):
     elif dataset_type == "linear":
         X, y = make_blobs(
             n_samples =  300,
-            center = [(-2,-2),(2,2)],
+            centers = [(-2,-2),(2,2)],
             cluster_std=0.8,
             random_state=42
         )

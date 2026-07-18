@@ -33,7 +33,7 @@ def run_explorer():
         redraw()
 
     fig, axes = plt.subplots(1, len(KERNEL_CONFIGS), figsize=(6*len(KERNEL_CONFIGS), 6))
-    fig.subplots_adjust(bottom=0.20)
+    fig.subplots_adjust(bottom=0.35)
     fig.suptitle("SVM Explorer")
     slider_ax = plt.axes([0.2, 0.08, 0.6, 0.03])
     # create slider...
@@ -41,14 +41,15 @@ def run_explorer():
     c_slider = Slider(
         ax=slider_ax,
         label="C",
-        valmin=0.01,
+        valmin=1,
         valmax=100,
-        valinit=100
+        valinit=10,
+        valstep=1
     )
 
     c_slider.on_changed(update)
 
-    radio_ax = fig.add_axes([0.02,0.55,0.12,0.25])
+    radio_ax = fig.add_axes([0.9,0.0,0.1,0.14])
 
     dataset_radio = RadioButtons(
         radio_ax,
