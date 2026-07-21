@@ -1,6 +1,7 @@
 from sklearn.datasets import make_circles
 from sklearn.datasets import make_moons
 from sklearn.datasets import make_blobs
+import numpy as np
 
 def add_outlier(X, point=(1.5, 1.5)):
     X = X.copy()
@@ -40,6 +41,10 @@ def generate_dataset(dataset_type):
             cluster_std=0.8,
             random_state=42
         )
+    
+    elif dataset_type == "XOR":
+        X = np.random.uniform(-1,1,(300,2))
+        y = (X[:, 0]*X[:, 1]> 0).astype(int)
 
     else:
         raise ValueError("Invalid dataset")

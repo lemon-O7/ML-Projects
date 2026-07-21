@@ -3,7 +3,8 @@ DATASETS = [
     "linear",
     "blobs",
     "moons",
-    "circles"
+    "circles",
+    "XOR"
 ]
 
 DEFAULT_DATASET = "circles"
