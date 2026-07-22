@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider, RadioButtons
+from matplotlib.widgets import Slider, Button
 from plotting import compare_kernels
 from datasets import generate_dataset
 from config import DEFAULT_DATASET, DATASETS, KERNEL_CONFIGS
@@ -17,7 +17,7 @@ def run_explorer():
             KERNEL_CONFIGS,
             axes
         )
-
+        
         fig.canvas.draw_idle()
 
     def update_dataset(label) :
@@ -42,7 +42,7 @@ def run_explorer():
     fig, axes = plt.subplots(1, len(KERNEL_CONFIGS), figsize=(6*len(KERNEL_CONFIGS), 6))
     fig.subplots_adjust(bottom=0.35)
     fig.suptitle("SVM Explorer")
-    slider_ax = plt.axes([0.2, 0.08, 0.6, 0.03])
+    slider_ax = fig.add_axes([0.2, 0.08, 0.6, 0.03])
     # create slider...
 
     c_slider = Slider(
@@ -56,14 +56,7 @@ def run_explorer():
 
     c_slider.on_changed(update_parameters)
 
-    radio_ax = fig.add_axes([0.9,0.0,0.1,0.14])
-
-    dataset_radio = RadioButtons(
-        radio_ax,
-        DATASETS
-    )
-
-    dataset_radio.on_clicked(update_dataset)
+    
 
     gamma_ax = fig.add_axes([0.2,0.04, 0.6, 0.03])
 
@@ -77,6 +70,33 @@ def run_explorer():
 
     gamma_slider.on_changed(update_parameters)
 
-    fig.tight_layout(rect=[0, 0.12, 1, 0.95])
+    
+    button_height = 0.05
+    start_x = 0.18
+    button_y = 0.15
+    button_width = 0.12
+    gap = 0.01
 
+    buttons = []
+
+    for i, dataset in enumerate(DATASETS):
+
+        ax = fig.add_axes([
+            start_x + i * (button_width + gap),
+            button_y,
+            button_width,
+            button_height
+        ])
+
+        btn = Button(ax, dataset)
+        buttons.append(btn)
+
+    for button, dataset in zip(buttons, DATASETS):
+
+        button.on_clicked(
+            lambda event, d=dataset: update_dataset(d)
+        )
+
+    
+    redraw()
     plt.show()
