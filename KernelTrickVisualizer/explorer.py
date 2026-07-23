@@ -7,7 +7,8 @@ from config import DEFAULT_DATASET, DATASETS, KERNEL_CONFIGS
 def run_explorer():
     
     X,y = generate_dataset(DEFAULT_DATASET)
-
+    current_dataset = DEFAULT_DATASET
+    
     def redraw() :
         for ax in axes:
             ax.clear()
@@ -21,9 +22,19 @@ def run_explorer():
         fig.canvas.draw_idle()
 
     def update_dataset(label) :
-        nonlocal X,y
+        nonlocal X,y,current_dataset
+        
+        for button in button_map.values():
+            button.color = "0.85"
+
+        button_map[label].color = "lightgreen"
+
+        fig.canvas.draw_idle()
+
+        current_dataset = label
         X,y = generate_dataset(label)
         redraw()
+        fig.canvas.draw_idle()
 
     def update_parameters(val):
 
@@ -70,14 +81,14 @@ def run_explorer():
 
     gamma_slider.on_changed(update_parameters)
 
-    
     button_height = 0.05
     start_x = 0.18
     button_y = 0.15
     button_width = 0.12
     gap = 0.01
-
+    
     buttons = []
+    button_map = {}
 
     for i, dataset in enumerate(DATASETS):
 
@@ -88,15 +99,21 @@ def run_explorer():
             button_height
         ])
 
-        btn = Button(ax, dataset)
+        btn = Button(
+            ax,
+            dataset,
+            color="0.85",
+            hovercolor="0.75"
+        )
         buttons.append(btn)
+        button_map[dataset] = btn 
 
     for button, dataset in zip(buttons, DATASETS):
 
         button.on_clicked(
             lambda event, d=dataset: update_dataset(d)
         )
+    button_map[DEFAULT_DATASET].ax.set_facecolor("lightgreen")
 
-    
     redraw()
     plt.show()
