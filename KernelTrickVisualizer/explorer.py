@@ -2,7 +2,13 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
 from plotting import compare_kernels
 from datasets import generate_dataset
-from config import DEFAULT_DATASET, DATASETS, KERNEL_CONFIGS
+from config import (
+    DEFAULT_DATASET,
+    DEFAULT_C,
+    DEFAULT_GAMMA,
+    DATASETS,
+    KERNEL_CONFIGS
+)
 
 def run_explorer():
     
@@ -50,6 +56,23 @@ def run_explorer():
 
         redraw()
 
+    def reset(event):
+        nonlocal X, y, current_dataset
+
+        current_dataset = DEFAULT_DATASET
+        X, y = generate_dataset(DEFAULT_DATASET)
+
+        c_slider.set_val(DEFAULT_C)
+        gamma_slider.set_val(DEFAULT_GAMMA)
+
+        for button in button_map.values():
+            button.color = "0.85"
+
+        button_map[DEFAULT_DATASET].color = "lightgreen"
+
+        redraw()
+
+
     fig, axes = plt.subplots(1, len(KERNEL_CONFIGS), figsize=(6*len(KERNEL_CONFIGS), 6))
     fig.subplots_adjust(bottom=0.35)
     fig.suptitle("SVM Explorer")
@@ -61,7 +84,7 @@ def run_explorer():
         label="C",
         valmin=1,
         valmax=100,
-        valinit=10,
+        valinit=DEFAULT_C,
         valstep=1
     )
 
@@ -76,7 +99,7 @@ def run_explorer():
         label="Gamma",
         valmin=0.01,
         valmax=5,
-        valinit=1,
+        valinit=DEFAULT_GAMMA,
     )
 
     gamma_slider.on_changed(update_parameters)
@@ -114,6 +137,17 @@ def run_explorer():
             lambda event, d=dataset: update_dataset(d)
         )
     button_map[DEFAULT_DATASET].ax.set_facecolor("lightgreen")
+
+    reset_ax = fig.add_axes([0.84, 0.04, 0.10, 0.07])
+
+    reset_button = Button(
+        reset_ax,
+        "Reset",
+        color="0.85",
+        hovercolor="0.75"
+    )
+
+    reset_button.on_clicked(reset)
 
     redraw()
     plt.show()

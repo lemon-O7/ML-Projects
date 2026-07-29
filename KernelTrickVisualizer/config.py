@@ -7,6 +7,9 @@ DATASETS = [
     "XOR"
 ]
 
+DEFAULT_C = 10
+DEFAULT_GAMMA = 1
+
 DEFAULT_DATASET = "circles"
 
 KERNEL_CONFIGS = [{"kernel" : "linear", "C": 100},
