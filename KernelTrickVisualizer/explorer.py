@@ -7,7 +7,8 @@ from config import (
     DEFAULT_C,
     DEFAULT_GAMMA,
     DATASETS,
-    KERNEL_CONFIGS
+    KERNEL_CONFIGS,
+    DATASET_EXPLANATIONS
 )
 
 def run_explorer():
@@ -38,6 +39,9 @@ def run_explorer():
         fig.canvas.draw_idle()
 
         current_dataset = label
+        explanation_text.set_text(
+            DATASET_EXPLANATIONS[current_dataset]
+        )
         X,y = generate_dataset(label)
         redraw()
         fig.canvas.draw_idle()
@@ -60,6 +64,9 @@ def run_explorer():
         nonlocal X, y, current_dataset
 
         current_dataset = DEFAULT_DATASET
+        explanation_text.set_text(
+            DATASET_EXPLANATIONS[DEFAULT_DATASET]
+        )
         X, y = generate_dataset(DEFAULT_DATASET)
 
         c_slider.set_val(DEFAULT_C)
@@ -72,12 +79,21 @@ def run_explorer():
 
         redraw()
 
-
     fig, axes = plt.subplots(1, len(KERNEL_CONFIGS), figsize=(6*len(KERNEL_CONFIGS), 6))
-    fig.subplots_adjust(bottom=0.35)
-    fig.suptitle("SVM Explorer")
+    fig.subplots_adjust(top=0.82,bottom=0.35)
+    fig.suptitle("SVM Explorer",fontsize=18,y=0.98)
     slider_ax = fig.add_axes([0.2, 0.08, 0.6, 0.03])
-    # create slider...
+
+    explanation_text = fig.text(
+            0.5,
+            0.25,
+            DATASET_EXPLANATIONS[DEFAULT_DATASET],
+            ha="center",
+            fontsize=10,
+            color = "dimgray",
+            style="italic"
+        )
+    
 
     c_slider = Slider(
         ax=slider_ax,

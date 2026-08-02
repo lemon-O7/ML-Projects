@@ -88,20 +88,27 @@ def plot_decision_boundary(model, X, y, ax):
     f"Kernel: {model.kernel}\n"
     )
 
-    if model.kernel == "linear":
-        margin = 2 / np.linalg.norm(model.coef_)
-        margin_text = f"{margin:.2f}"
-    else:
-        margin_text = "N/A"
-    
     num_sv = len(model.support_vectors_)
-    info = (
-        f"Kernel: {model.kernel.upper()}\n"
-        f"C: {model.C}\n"
-        f"Support Vectors: {num_sv}\n"
-        f"Accuracy: {accuracy * 100:.1f}%\n"
-        f"Margin Width: {margin_text}"
-    )
+
+    info = [
+        f"Kernel: {model.kernel.upper()}",
+        f"C: {model.C}"
+    ]
+    
+    if model.kernel != "linear":
+        info.append(f"Gamma: {model.gamma}")
+    
+    if model.kernel == "poly":
+        info.append(f"Degree: {model.degree}")
+    
+    info.append(f"Support Vectors: {num_sv}")
+    info.append(f"Accuracy: {accuracy * 100:.1f}%")
+    
+    if model.kernel == "linear":
+        margin = 2 / np.linalg.norm(model.coef_[0])
+        info.append(f"Margin Width: {margin:.2f}")
+    
+    info = "\n".join(info)
 
     ax.text(
     0.02,
