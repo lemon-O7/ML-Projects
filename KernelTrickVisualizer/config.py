@@ -20,6 +20,6 @@ DEFAULT_GAMMA = 1
 
 DEFAULT_DATASET = "circles"
 
-KERNEL_CONFIGS = [{"kernel" : "linear", "C": 100},
-                   {"kernel" : "rbf", "C":100},
-                   {"kernel" : "poly", "C": 100, "degree" : 3}]
+KERNEL_CONFIGS = [{"kernel" : "linear", "C": DEFAULT_C},
+                   {"kernel" : "rbf", "C": DEFAULT_C},
+                   {"kernel" : "poly", "C": DEFAULT_C, "degree" : 3}]
